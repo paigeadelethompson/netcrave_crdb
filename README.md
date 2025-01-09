@@ -115,3 +115,7 @@ ALTER DATABASE my_test_db SET default_transaction_isolation = 'read committed';
 
 - `postgresql://my_test_user@srv-1-1.netcrave.io:26257/my_test_db?sslcert=/crdb/client.my_test_user.crt&sslkey=/crdb/client.my_test_user.key&sslmode=verify-full&sslrootcert=/crdb/ca.crt`
 - With password: `postgresql://my_test_user:$tr0nGpassW0rD@srv-1-1.netcrave.io:26257/my_test_db?sslcert=/crdb/client.my_test_user.crt&sslkey=/crdb/client.my_test_user.key&sslmode=verify-full&sslrootcert=/crdb/ca.crt`
+
+# TODO
+- Setup multi-tenancy (with enterprise encryption)
+- Follow PL/PGSQL support status https://github.com/cockroachdb/cockroach/issues/137561
