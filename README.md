@@ -119,3 +119,4 @@ ALTER DATABASE my_test_db SET default_transaction_isolation = 'read committed';
 # TODO
 - Setup multi-tenancy (with enterprise encryption)
 - Follow PL/PGSQL support status https://github.com/cockroachdb/cockroach/issues/137561
+- https://github.com/cockroachdb/cockroach/issues/117744
