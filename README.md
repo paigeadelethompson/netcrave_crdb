@@ -104,7 +104,7 @@ GRANT ALL ON DATABASE my_test_db TO my_test_user WITH GRANT OPTION;
 ```
 
 ### Set default transaction isolation level for a database 
-This step requires an enterprise license: 
+This step requires an enterprise license, the default is ordinarily `serialized`, and this won't do unless your application specifically supports it, setting this to `read committed` will likely fix compatibility issues: 
 
 In the SQL shell:
 ```
