@@ -76,3 +76,42 @@ SET CLUSTER SETTING enterprise.license = '<secret>';
 ```
 
 Replace `<secret>` with your license key provided by Cockroach Labs. 
+
+### Create a user 
+
+Create a certificate for the user: 
+```
+docker run -it --rm -v $(pwd)/crdb/certs:/certs -v $(pwd)/crdb/my-safe-directory:/my-safe-directory \
+docker.io/cockroachdb/cockroach:latest cert create-client my_test_user --certs-dir=/certs --ca-key=/my-safe-directory/ca.key
+```
+
+Start a SQL Shell, then run the following SQL commands: 
+```
+CREATE USER my_test_user;
+```
+
+To create a user with a password: 
+```
+CREATE USER my_test_user WITH LOGIN PASSWORD '$tr0nGpassW0rD'
+```
+
+### Create a database and grant privileges to user
+
+Start a SQL Shell, then run the following SQL commands: 
+```
+CREATE DATABASE my_test_db;
+GRANT ALL ON DATABASE my_test_db TO my_test_user WITH GRANT OPTION;
+```
+
+### Set default transaction isolation level for a database 
+This step requires an enterprise license: 
+
+In the SQL shell:
+```
+ALTER DATABASE my_test_db SET default_transaction_isolation = 'read committed';
+```
+
+## Database connection string
+
+- `postgresql://my_test_user@srv-1-1.netcrave.io:26257/my_test_db?sslcert=/crdb/client.my_test_user.crt&sslkey=/crdb/client.my_test_user.key&sslmode=verify-full&sslrootcert=/crdb/ca.crt`
+- With password: `postgresql://my_test_user:$tr0nGpassW0rD@srv-1-1.netcrave.io:26257/my_test_db?sslcert=/crdb/client.my_test_user.crt&sslkey=/crdb/client.my_test_user.key&sslmode=verify-full&sslrootcert=/crdb/ca.crt`
